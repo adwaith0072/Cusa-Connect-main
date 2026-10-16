@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "CusatThings"
+description = "A vibrant student community website for Cochin University of Science and Technology, helping students discover campus activities, nearby food, weekend trips, department locations, and share useful information."
+version = "1.0.0"
+id = "artifacts/cusatthings"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 24036
+
+[services.development]
+run = "pnpm --filter @workspace/cusatthings run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/cusatthings", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/cusatthings/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "24036"
+BASE_PATH = "/"

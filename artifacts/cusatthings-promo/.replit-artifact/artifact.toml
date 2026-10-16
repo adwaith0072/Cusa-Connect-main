@@ -1,0 +1,28 @@
+kind = "video"
+previewPath = "/cusatthings-promo/"
+title = "CusatThings Campus Promo"
+description = "A short cinematic motion piece for CusatThings, showing the student community, campus life, food spots, trips, and department map in a dark visual direction."
+version = "1.0.0"
+id = "artifacts/cusatthings-promo"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/cusatthings-promo/" ]
+localPort = 23940
+
+[services.development]
+run = "pnpm --filter @workspace/cusatthings-promo run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/cusatthings-promo", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/cusatthings-promo/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "23940"
+BASE_PATH = "/cusatthings-promo/"
