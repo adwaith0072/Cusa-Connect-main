@@ -1,13 +1,70 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "framework": null,
-  "installCommand": "pnpm install",
-  "buildCommand": "pnpm --filter @workspace/cusatthings run build",
-  "outputDirectory": "artifacts/cusatthings/dist/public",
+  "services": {
+    "api-server": {
+      "root": "artifacts/api-server",
+      "framework": "express",
+      "entrypoint": "src/app.ts"
+    },
+    "cusatthings": {
+      "root": "artifacts/cusatthings",
+      "framework": "vite",
+      "installCommand": "pnpm install --frozen-lockfile",
+      "buildCommand": "pnpm --filter @workspace/cusatthings run build",
+      "outputDirectory": "dist/public",
+      "rewrites": [
+        {
+          "source": "/(.*)",
+          "destination": "/index.html"
+        }
+      ]
+    },
+    "cusatthings-design-system": {
+      "root": "artifacts/cusatthings-design-system",
+      "framework": "vite",
+      "installCommand": "pnpm install --frozen-lockfile",
+      "buildCommand": "pnpm --filter @workspace/cusatthings-design-system run build",
+      "outputDirectory": "dist",
+      "rewrites": [
+        {
+          "source": "/(.*)",
+          "destination": "/index.html"
+        }
+      ]
+    },
+    "cusatthings-promo": {
+      "root": "artifacts/cusatthings-promo",
+      "framework": "vite",
+      "installCommand": "pnpm install --frozen-lockfile",
+      "buildCommand": "pnpm --filter @workspace/cusatthings-promo run build",
+      "outputDirectory": "dist/public",
+      "rewrites": [
+        {
+          "source": "/(.*)",
+          "destination": "/index.html"
+        }
+      ]
+    },
+    "mockup-sandbox": {
+      "root": "artifacts/mockup-sandbox",
+      "framework": "vite",
+      "installCommand": "pnpm install --frozen-lockfile",
+      "buildCommand": "pnpm --filter @workspace/mockup-sandbox run build",
+      "outputDirectory": "dist",
+      "rewrites": [
+        {
+          "source": "/(.*)",
+          "destination": "/index.html"
+        }
+      ]
+    }
+  },
   "rewrites": [
     {
-      "source": "/(.*)",
-      "destination": "/index.html"
+      "source": "/api/(.*)",
+      "destination": {
+        "service": "api-server"
+      }
     }
   ],
   "headers": [

@@ -65,3 +65,19 @@ The API server needs a persistent Node process and is **not** suitable for Verce
 - React escapes all user content; stored data is re-validated and length-limited when read back.
 - API: allowlist CORS (`CORS_ORIGIN`), 100 kB body limit, no stack traces in responses.
 - Run `pnpm audit` before each release.
+
+## Vercel multi-service deployment
+
+The repository root `vercel.json` defines five Vercel Services. Only `api-server` is exposed publicly, at `/api/*`; `cusatthings`, `cusatthings-promo`, `cusatthings-design-system`, and `mockup-sandbox` have no top-level public rewrites and therefore remain internal. The existing global security headers and asset cache policy are retained.
+
+### API entrypoint and routing
+
+The Express service entrypoint is `artifacts/api-server/src/app.ts`, which exports the Express app. The app mounts its router at `/api`, so the public `/api/healthz` path remains consistent with the existing route. `src/index.ts` remains the local long-running server entrypoint for development.
+
+### Service bindings
+
+No binding is currently configured. The existing website's `/api/healthz` request is a browser-side relative URL, while Vercel service bindings inject URLs for server-side runtime code and are not available to Vite client code at build time. If a server-side function is later added that calls the API privately, declare an `api-server` binding on that calling service and read its injected environment variable at runtime. Do not manually define the injected variable.
+
+### Vercel project setup
+
+In Vercel project settings, select **Services** as the project framework/preset. Service roots are relative to this repository's root `vercel.json`. Use `vercel dev` to test the combined service configuration locally. Vercel deployment/build validation still needs to be run in an authenticated Vercel environment.
