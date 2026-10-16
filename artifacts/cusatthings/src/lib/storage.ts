@@ -4,6 +4,7 @@ const PREFIX = 'cusathings:v1:';
 
 function read<T>(key: string, initial: T, sanitize?: (value: unknown) => T): T {
   try {
+    if (typeof window === 'undefined' || !window.localStorage) return initial;
     const raw = window.localStorage.getItem(PREFIX + key);
     if (raw === null) return initial;
     const parsed: unknown = JSON.parse(raw);

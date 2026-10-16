@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import logo from '@assets/825952776-bw_logo_(1)_1786532301695.png';
+import logo from '@/assets/logo.png';
 import { EASE, Kicker, Orbit, Rule, SceneShell, Wordmark } from '../SceneBits';
 
 export function Scene6() {

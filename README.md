@@ -50,7 +50,7 @@ Then in Vercel: **Add New → Project → import the repo**. `vercel.json` at th
 
 - Root Directory: repository root (leave default)
 - Framework Preset: Other
-- Install: `pnpm install --frozen-lockfile`
+- Install: `pnpm install`
 - Build: `pnpm --filter @workspace/cusatthings run build`
 - Output: `artifacts/cusatthings/dist/public`
 - SPA rewrite and security headers (CSP, HSTS, frame and MIME protections)

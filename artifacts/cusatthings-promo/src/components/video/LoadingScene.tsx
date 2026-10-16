@@ -1,8 +1,6 @@
-// Placeholder loading scene - replace with your video content
-
 import { motion } from 'framer-motion';
 
-export function ReplitLoadingScene() {
+export function LoadingScene() {
   return (
     <motion.div
       className="absolute inset-0 flex flex-col items-center justify-center bg-[#0D101E]"
@@ -18,9 +16,10 @@ export function ReplitLoadingScene() {
         transition={{ delay: 0.2, duration: 0.6, ease: 'easeOut' }}
       >
         <motion.div
+          className="flex h-20 w-20 items-center justify-center rounded-2xl bg-[#c9502f] text-2xl font-bold text-[#fff8e9]"
           animate={{
             scale: [1, 1.05, 1],
-            opacity: [1, 0.8, 1],
+            opacity: [1, 0.9, 1],
           }}
           transition={{
             duration: 2,
@@ -28,7 +27,7 @@ export function ReplitLoadingScene() {
             ease: 'easeInOut',
           }}
         >
-          <ReplitLogo size={120} />
+          CT
         </motion.div>
 
         <motion.div
@@ -46,54 +45,22 @@ export function ReplitLoadingScene() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.8, duration: 0.5 }}
         >
-          Building your video...
+          Loading preview...
         </motion.p>
       </motion.div>
     </motion.div>
   );
 }
 
-function ReplitLogo({
-  size = 64,
-  className = '',
-}: {
-  size?: number;
-  className?: string;
-}) {
-  return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 32 32"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className={className}
-    >
-      <path
-        d="M7 5.5C7 4.67157 7.67157 4 8.5 4H15.5C16.3284 4 17 4.67157 17 5.5V12H8.5C7.67157 12 7 11.3284 7 10.5V5.5Z"
-        fill="#F26207"
-      />
-      <path
-        d="M17 12H25.5C26.3284 12 27 12.6716 27 13.5V18.5C27 19.3284 26.3284 20 25.5 20H17V12Z"
-        fill="#F26207"
-      />
-      <path
-        d="M7 21.5C7 20.6716 7.67157 20 8.5 20H17V28H8.5C7.67157 28 7 27.3284 7 26.5V21.5Z"
-        fill="#F26207"
-      />
-    </svg>
-  );
-}
-
 function LoadingDots() {
   return (
-    <div className="flex items-center gap-1.5">
+    <div className="flex gap-1.5">
       {[0, 1, 2].map((i) => (
         <motion.div
           key={i}
-          className="w-2 h-2 rounded-full bg-[#F26207]"
+          className="h-2 w-2 rounded-full bg-[#c9502f]"
           animate={{
-            scale: [1, 1.3, 1],
+            scale: [0.8, 1.2, 0.8],
             opacity: [0.5, 1, 0.5],
           }}
           transition={{
@@ -108,4 +75,4 @@ function LoadingDots() {
   );
 }
 
-export default ReplitLoadingScene;
+export default LoadingScene;

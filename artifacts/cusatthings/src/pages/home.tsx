@@ -15,7 +15,7 @@ import {
 import { sanitizeComments, sanitizePosts, type Comment } from '@/lib/sanitize';
 import { stringList, useStoredState } from '@/lib/storage';
 import { timeAgo, todayLabel } from '@/lib/time';
-import logo from '@assets/825952776-bw_logo_(1)_1786532301695.png';
+import logo from '@/assets/logo.png';
 
 type Modal = 'share' | 'map' | null;
 
@@ -52,7 +52,14 @@ function useActiveSection(ids: readonly string[]) {
   return active;
 }
 
-function upcoming(event: CampusEvent, today = new Date().toISOString().slice(0, 10)) {
+function getLocalDateString(d = new Date()) {
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
+function upcoming(event: CampusEvent, today = getLocalDateString()) {
   return !event.date || event.date >= today;
 }
 
@@ -133,6 +140,7 @@ export default function Home() {
     if (!window.confirm('Delete this post?')) return;
     setUserPosts((current) => current.filter((p) => p.id !== id));
     setSaved((current) => current.filter((p) => p !== id));
+    setLiked((current) => current.filter((p) => p !== id));
     setComments((current) => {
       const { [id]: _removed, ...rest } = current;
       return rest;
