@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&display=swap');
+@import 'tailwindcss';
+
+:root {
+  --ink: #080b12;
+  --ink-soft: #111825;
+  --paper: #e9e4d6;
+  --muted: #9da4ad;
+  --saffron: #f4a340;
+  --coral: #ed6d54;
+  --teal: #64b7a6;
+  --line: rgba(233, 228, 214, .18);
+  --font-display: 'Barlow Condensed', sans-serif;
+  --font-body: 'Manrope', sans-serif;
+  --font-mono: 'DM Mono', monospace;
+}
+
+@theme inline {
+  --color-primary: var(--saffron);
+  --color-secondary: var(--teal);
+  --color-accent: var(--coral);
+  --color-bg-dark: var(--ink);
+  --color-text-primary: var(--paper);
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+  --font-mono: var(--font-mono);
+}
+
+* { box-sizing: border-box; }
+html, body, #root {
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+  overflow: hidden;
+  background: var(--ink);
+}
+body {
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.video-frame {
+  position: relative;
+  width: 100vw;
+  height: 100dvh;
+  overflow: hidden;
+  background: var(--ink);
+  color: var(--paper);
+  isolation: isolate;
+}
+.video-frame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 20;
+  opacity: .08;
+  mix-blend-mode: screen;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.7'/%3E%3C/svg%3E");
+}
+.display { font-family: var(--font-display); }
+.mono { font-family: var(--font-mono); }
+.scene-label { letter-spacing: .18em; text-transform: uppercase; font-family: var(--font-mono); }
+.photo {
+  object-fit: cover;
+  object-position: center;
+  filter: saturate(.82) contrast(1.08);
+}
+.hairline { height: 1px; background: var(--line); transform-origin: left; }
+.mask { overflow: hidden; }
